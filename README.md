@@ -3,7 +3,7 @@
 The goal of this toy project was to convert monthly discharge data of certain hydrological stations from a format in which they were downloaded from the website of BAFG = Bundesanstalt für Gewässerkunde (Koblenz, Germany), to pandas dataframes (to be able to extract information and manipulate the data in a civilized way).
 
 ## Scope
-The 28 hydrological stations under consideration are geographically within the Ferghana Valley in Central Asia (selected not randomly, but because of an earlier acqaintance).
+The 28 hydrological stations under consideration are geographically within the basin of the Syr Darya river in Central Asia (selected not randomly, but because of an earlier acqaintance).
 
 ## Links
 * https://www.bafg.de/GRDC/EN/01_GRDC/13_dtbse/database_node.html (Global Runoff Data Base by BAFG) 
@@ -18,5 +18,12 @@ The 28 hydrological stations under consideration are geographically within the F
 ### Load an instance of ``BafgConverter`` from pickle
 ```
 ferghana = BafgConverter.unpickle("ferghana.pkl")
-# provided that *ferghana.pkl* is in the working directory, otherwise replace with correct data path
+# provided that ferghana.pkl is in the working directory, otherwise replace with correct data path
+```
+### Extract discharge data for a station
+```
+grdc_number = '2416202'
+discharges = ferghana.get_time_series(grdc_number)
+
+print(discharges) # prints the table of discharges of the Syr Darya river at atation Kal.
 ```
