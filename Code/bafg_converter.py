@@ -187,24 +187,7 @@ class BafgConverter:
 if __name__ == '__main__':
     converter = BafgConverter()
 
-    # # create gauge list
-    # gauges_file_name = r"../Data/stationbasins.geojson"
-    # converter.create_gauge_list(gauges_file_name)
-    # print(converter.gauges)
-    #
-    # # create station dataframes
-    # folder = "../Data/"
-    # converter.create_gauge_dataframes_from_folder(folder)
-    #
-    # df = converter.get_time_series('2316200')
-    #
-    # print(df)
-    #
-    # converter.gauges_to_csv("gauges.csv")
-    # converter.gauge_discharges_to_csv('2316200', 'discharges_2316200.csv')
-    #
-    # converter.pickle("ferghana.pkl")
-
+    # load from pickle and extract discharges for a station.
     ferghana = BafgConverter.unpickle("ferghana.pkl")
 
     print(ferghana.gauges)
