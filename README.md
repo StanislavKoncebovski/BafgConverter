@@ -25,5 +25,15 @@ ferghana = BafgConverter.unpickle("ferghana.pkl")
 grdc_number = '2416202'
 discharges = ferghana.get_time_series(grdc_number)
 
-print(discharges) # prints the table of discharges of the Syr Darya river at atation Kal.
+print(discharges) # prints the table of discharges of the Syr Darya river at station Kal.
 ```
+### Create similar objects for other basins:
+1. Download zip file with discharges and gauge description from https://www.bafg.de/GRDC/EN/02_srvcs/21_tmsrs/210_prtl/prtl_node.html
+2. Unpack the zip file into a directory. The files are "not pretty", so that Python's ElementTree can have problems with reading them. In this case, you will need to prettify the XML manually (I did it in Visual Studio 2019).
+3. If the path to the directory with the files is ``path``:
+   1. Create the gauge list using
+      ````
+      converter = BafgConverter()
+      
+      converter.create_gauge_list(path)
+      ````
