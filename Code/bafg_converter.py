@@ -1,10 +1,14 @@
 import datetime
+import json
 from datetime import datetime
 from typing import Optional
 
 import numpy as np
 import pandas as pd
 import xml.etree.ElementTree as ET
+
+from gauge import Gauge
+
 
 class BafgConverter:
     '''
@@ -18,9 +22,15 @@ class BafgConverter:
 
     def __init__(self):
         self._data = []
+        self._gauges = []
+
+
+    @property
+    def gauges(self):
+        return self._gauges
 
     #region Public Features
-    def create_series(self, file_name: str) -> Optional[pd.DataFrame]:
+    def create_gauge_dataframe(self, file_name: str) -> Optional[pd.DataFrame]:
         '''
         Creates a pandas series from a BFG WML file
         :param file_name: the name of the fle.
@@ -54,12 +64,28 @@ class BafgConverter:
 
         return pd.DataFrame(self._data, columns=['Year', 'Month', 'Discharge'])
 
+    def create_gauge_list(self, file_name: str):
+        self._gauges.clear()
+
+        with open(file_name) as file:
+            doc = json.load(file)
+
+        for feature in doc['features']:
+            attributes = feature['attributes']
+            gauge = Gauge(grid_number=int(attributes['grdc_no']), river=attributes['river'].title(), station=attributes['station'].title())
+            self._gauges.append(gauge)
+
     #endregion
 
 if __name__ == '__main__':
     converter = BafgConverter()
     file_name = r"C:\Users\Stan\Desktop\-999_2316200_Q_Merge.Months.wml"
 
-    discharges = converter.create_series(file_name)
+    discharges = converter.create_gauge_dataframe(file_name)
 
     print(discharges)
+
+    gauges_file_name = r"C:\Users\Stan\Desktop\stationbasins.geojson"
+    converter.create_gauge_list(gauges_file_name)
+
+    print(converter.gauges)
