@@ -11,3 +11,5 @@ The 28 hydrological stations under consideration are geographically within the F
 * https://www.compositerunoff.sr.unh.edu/ (Another hydrological source, less informative than BAGF)
 
 ## Contents
+* `Code/bafg_converter.py`: contains class BafgConverter
+* `Data/ferghana.pkl`: the gauge list and the collection of discharge dataframes in a single pickle file.
