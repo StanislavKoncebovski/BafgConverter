@@ -13,3 +13,10 @@ The 28 hydrological stations under consideration are geographically within the F
 ## Contents
 * `Code/bafg_converter.py`: contains class BafgConverter
 * `Data/ferghana.pkl`: the gauge list and the collection of discharge dataframes in a single pickle file.
+
+## How To:
+### Load an instance of ``BafgConverter`` from pickle
+```
+ferghana = BafgConverter.unpickle("ferghana.pkl")
+# provided that *ferghana.pkl* is in the working directory, otherwise replace with correct data path
+```
