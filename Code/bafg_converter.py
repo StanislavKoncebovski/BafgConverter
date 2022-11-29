@@ -22,7 +22,7 @@ class BafgConverter:
 
     def __init__(self):
         self._data = []
-        self._gauges = []
+        self._gauges = None
 
 
     @property
@@ -65,25 +65,27 @@ class BafgConverter:
         return pd.DataFrame(self._data, columns=['Year', 'Month', 'Discharge'])
 
     def create_gauge_list(self, file_name: str):
-        self._gauges.clear()
-
         with open(file_name) as file:
             doc = json.load(file)
+
+        gauges = []
 
         for feature in doc['features']:
             attributes = feature['attributes']
             gauge = Gauge(grid_number=int(attributes['grdc_no']), river=attributes['river'].title(), station=attributes['station'].title())
-            self._gauges.append(gauge)
+            gauges.append(gauge)
+
+        self._gauges = pd.DataFrame(gauges, columns=['GridNo', 'River', 'Station'])
 
     #endregion
 
 if __name__ == '__main__':
     converter = BafgConverter()
-    file_name = r"C:\Users\Stan\Desktop\-999_2316200_Q_Merge.Months.wml"
-
-    discharges = converter.create_gauge_dataframe(file_name)
-
-    print(discharges)
+    # file_name = r"C:\Users\Stan\Desktop\-999_2316200_Q_Merge.Months.wml"
+    #
+    # discharges = converter.create_gauge_dataframe(file_name)
+    #
+    # print(discharges)
 
     gauges_file_name = r"C:\Users\Stan\Desktop\stationbasins.geojson"
     converter.create_gauge_list(gauges_file_name)
