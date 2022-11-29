@@ -34,6 +34,12 @@ print(discharges) # prints the table of discharges of the Syr Darya river at sta
    1. Create the gauge list using
       ````
       converter = BafgConverter()
-      
-      converter.create_gauge_list(path)
+      converter.create_gauge_list(f"{path}/stationbasins.geojson")
       ````
+      
+   2. Create the discharge dataframes using 
+      ```
+      converter.create_gauge_dataframes_from_folder(path)
+      ```
+      
+   3. Ready (hopefully) -- play with your data
